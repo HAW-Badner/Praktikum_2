@@ -31,27 +31,22 @@ public class PriorityQueue implements Comparable{
                 index = otto;                                       // ... und passe Index an.
             }
         }
-        // Lösche größten Wert aus Queue und schiebe Array wieder zusammen
-        for(int i = index; i < size-1; i++)
-        {
-            this.elements[i] = this.elements[i+1];                  // Schiebe alle Elemente ab Index des größten Wertes um eins nach links.
-        }
-        this.elements[this.size-1] = null;                          // Setze letztes Element des Arrays auf NULL.
+        // Lösche größten Wert aus Queue
+        this.elements[index] = this.elements[this.size-1];          // Schiebe letztes Element in Queue auf Platz des größten Elements.
+        this.elements[this.size-1] = null;                          // Setze letztes Element des Arrays auf NULL.                          
         this.size--;                                                // Verringere die Anzahl der Elemente um 1, da größter Wert gelöscht.        
         return biggest;
     }
 
     public void put(Comparable c) // add an object to the queue
     {
-        for(int willi = 0; willi < elements.length; willi++)
-        {
-            if(this.elements[willi] == null)        // Schreibe das neue Element an die erste freie Stelle im Array (Queue)
-            {
-                this.elements[willi] = c;
-                break;
-            }
+        if(size < this.elements.length){                // Schreibe das neue Element an die erste freie Stelle in der Queue.
+            this.elements[size] = c;
+            this.size++;                                // Erhöhe die Anzahl der Elemente.
         }
-        this.size++;                                // Erhöhe die Anzahl der Elemente
+        else{
+            System.out.println("Kein Platz");
+        }        
     }
     public int getSize()  // how many elements are stored currently
     {
