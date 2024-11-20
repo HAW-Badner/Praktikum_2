@@ -1,6 +1,6 @@
 /*  Programm            : PriotityQueue.java
     Autoren             : Sönke Baumgarten, Sven Andris
-    Letzte Änderung     : 16.11.2024
+    Letzte Änderung     : 20.11.2024
  */
 
 @SuppressWarnings("rawtypes")
