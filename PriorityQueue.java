@@ -7,11 +7,11 @@
 public class PriorityQueue implements Comparable{
 
     // attributes
-    private int size;                   // how many objects are stored currently
-    private Comparable[] elements;      // the array of _comparable_ objects
+    private int size;                       // how many objects are stored currently
+    private Comparable[] elements;          // the array of _comparable_ objects
 
     // constructor
-    public PriorityQueue(int queuesize) // initialises all attributes
+    public PriorityQueue(int queuesize)     // initialises all attributes
     {
         this.size = 0;
         this.elements = new Comparable[queuesize];
