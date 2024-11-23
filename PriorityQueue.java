@@ -100,7 +100,7 @@ public class PriorityQueue implements Iterable{
         };
     }
   
-
+/*
     public static void main(String[] args) {
         PriorityQueue Queue = new PriorityQueue();
         Queue.put(8);
@@ -152,5 +152,5 @@ public class PriorityQueue implements Iterable{
         System.out.println();
 
     }
-
+*/
 }
