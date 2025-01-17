@@ -4,72 +4,63 @@
  */
 
 import java.util.Iterator;
+@SuppressWarnings("unchecked")
 
-@SuppressWarnings("rawtypes")
-public class PriorityQueue implements Iterable{
-
+public class PriorityQueue<T extends Comparable<T>> implements Iterable<T>{ // Es ist eine Klasse "T", welche wir nicht kennen...
+                                                                            // ... aber sie muss ein Interface implementieren, nämlich "Comparable von "T".
+                                                                            // Die Iteratorklasse liefert auch "T" zurück.
     // attributes
     private int size;                       // how many objects are stored currently
-    private Comparable[] elements;          // the array of _comparable_ objects
+    private T[] elements;                   // the array of _comparable_ objects - es sollen jetzt T-Objekte abgespeichert werden
 
     // constructor
     public PriorityQueue()     // initialises all attributes
     {
         this.size = 0;
-        this.elements = new Comparable[2];
+        this.elements = (T[])new Comparable[2]; // Caste auf T-Array, da "elements" von der Klasse T ist. "Ugly-Cast", geht nicht anders.
     }
 
     // methods
-    @SuppressWarnings("unchecked")
-    public Comparable get()   // returns the largest element stored
+    public T get()   // returns the largest element stored - Liefert jetzt ein T-Objekt
     {
-        Comparable biggest = this.elements[0];                      // speichere das erste Element aus dem Array.
-        int index = 0;                                              // Index des größten Elements.
+        T biggest = this.elements[0];                       // speichere das erste Element aus dem Array.
+        int index = 0;                                      // Index des größten Elements.
         for(int i = 1; i < size; i++)
         {     
-            if(this.elements[i].compareTo(biggest) > 0)          // Wenn das aktuelle Element größer ist als das bisher größte...
+            if(this.elements[i].compareTo(biggest) > 0)     // Wenn das aktuelle Element größer ist als das bisher größte...
             {
-                biggest = this.elements[i];                      // ... speiche neuen größten Wert...
-                index = i;                                       // ... und passe Index an.
+                biggest = this.elements[i];                 // ... speiche neuen größten Wert...
+                index = i;                                  // ... und passe Index an.
             }
         }
         // Lösche größten Wert aus Queue
-        this.elements[index] = this.elements[this.size-1];          // Schiebe letztes Element in Queue auf Platz des größten Elements.
-        this.elements[this.size-1] = null;                          // Setze letztes Element des Arrays auf NULL.                          
-        this.size--;                                                // Verringere die Anzahl der Elemente um 1, da größter Wert gelöscht.        
+        this.elements[index] = this.elements[this.size-1];      // Schiebe letztes Element in Queue auf Platz des größten Elements.
+        this.elements[this.size-1] = null;                      // Setze letztes Element des Arrays auf NULL.                          
+        this.size--;                                            // Verringere die Anzahl der Elemente um 1, da größter Wert gelöscht.        
         
         if (this.elements.length > 2){      // prüfe, ob Array noch länger als 2 ist
             if (((double)this.size / (double)this.elements.length) < 0.25){             // Wenn weniger als 25 Prozent im Array...
-                Comparable[] tempElements = new Comparable[this.elements.length / 2];   // ... erstelle neues Array mit halber Länge
+                T[] tempElements = (T[])new Comparable[this.elements.length / 2];       // ... erstelle neues Array mit halber Länge. "Ugly-Cast"
                 for (int i = 0; i < tempElements.length; i++){                          // ... kopiere Werte in das neue Array
                     tempElements[i] = this.elements[i];
                 }
                 this.elements = tempElements;
             }
-        }
-
-        
+        } 
         return biggest;
     }
 
-    public void put(Comparable c) // add an object to the queue
+    public void put(T c) // add an object to the queue - Erwarten ein T-Objekt
     {
         if (this.elements.length == this.size){         // Ist Array voll...
-            Comparable[] tempElements = new Comparable[this.elements.length * 2];   // ... erstelle neues Array mit doppelter Länge
-            for (int i = 0; i < this.elements.length; i++){                         // ... kopiere Werte in das neue Array
+            T[] tempElements = (T[])new Comparable[this.elements.length * 2];   // ... erstelle neues Array mit doppelter Länge. "Ugly-Cast"
+            for (int i = 0; i < this.elements.length; i++){                     // ... kopiere Werte in das neue Array
                 tempElements[i] = this.elements[i];
             }
-            this.elements = tempElements;                                           // temporäres Array in elements kopieren 
+            this.elements = tempElements;                                       // temporäres Array in elements kopieren 
         }
-
-
-        if(size < this.elements.length){                // Schreibe das neue Element an die erste freie Stelle in der Queue.
-            this.elements[size] = c;
-            this.size++;                                // Erhöhe die Anzahl der Elemente.
-        }
-        else{
-            System.out.println("Kein Platz");
-        }        
+        this.elements[size] = c;    // Schreibe das neue Element an die erste freie Stelle in der Queue.
+        this.size++;                // Erhöhe die Anzahl der Elemente.
     }
     public int getSize()  // how many elements are stored currently
     {
@@ -82,8 +73,8 @@ public class PriorityQueue implements Iterable{
 
     // Gehe durch das Elements-Array und gib jede Stelle nacheinander aus, ohne diese zu löschen
     @Override
-    public Iterator<Comparable> iterator() {            // Anonyme Klasse Iterator
-        return new Iterator<Comparable>() {                 
+    public Iterator<T> iterator() {            // Anonyme Klasse Iterator
+        return new Iterator<T>() {                 
             int ind = 0;                                // Laufvariable für Array index
             
             @Override
@@ -92,8 +83,8 @@ public class PriorityQueue implements Iterable{
             }
 
             @Override
-            public Comparable next() {                  
-                    Comparable obj = elements[ind];     // Schreibe aktuelles Objekt aus Array in Objekt
+            public T next() {                  
+                    T obj = elements[ind];     // Schreibe aktuelles Objekt aus Array in Objekt
                     ind++;                              // gehe zu nächsten Stelle im Array
                     return obj; 
             }
