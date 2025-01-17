@@ -91,7 +91,7 @@ public class PriorityQueue<T extends Comparable<T>> implements Iterable<T>{ // E
         };
     }
   
-/*
+
     public static void main(String[] args) {
         PriorityQueue Queue = new PriorityQueue();
         Queue.put(8);
@@ -143,5 +143,5 @@ public class PriorityQueue<T extends Comparable<T>> implements Iterable<T>{ // E
         System.out.println();
 
     }
-*/
+
 }
